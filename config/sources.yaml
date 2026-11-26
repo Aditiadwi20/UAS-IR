@@ -1,0 +1,40 @@
+defaults:
+  user_agent: "IRKampusBot/1.0 (tugas kuliah UPN Veteran Jatim; kontak: EMAIL_KALIAN@student.upnjatim.ac.id)"
+  delay_seconds: 2.0
+  timeout: 20
+  retries: 3
+  min_chars: 300
+  out_dir: data/raw
+  html_cache_dir: data/raw_html
+
+sources:
+  rskemenkes_surabaya:
+    description: "Artikel Kesehatan RS Kemenkes Surabaya"
+    license_note: "Hak cipta dilindungi; digunakan untuk tugas kuliah non-komersial (verifikasi izin)"
+    list_url_template: "https://rskemenkessurabaya.go.id/artikel-kesehatan?page={page}"
+    start_page: 1
+    max_pages: 60              # berhenti otomatis jika halaman tidak punya link baru
+    article_url_regex: '^https://rskemenkessurabaya\.go\.id/artikel-kesehatan/[^/?#]+$'
+    title_selector: "h1"
+    content_selectors: ["article", "main", ".article-content", ".post-content"]
+    remove_selectors: ["nav", "footer", "header", "aside", "form", "script", "style", ".share", ".related"]
+    labels:                    # teks label -> nilai di node teks sesudahnya
+      author: "Penulis Medis"
+      reviewed: "Terakhir Direview"
+    references_heading: '^\s*Referensi\s*$'
+    drop_line_patterns:
+      - '^Daftar Isi Artikel$'
+      - '^Sembunyikan$'
+      - '^Pilih bagian yang ingin dibaca'
+      - '^Navigasi Artikel$'
+      - '^Bagikan:?$'
+      - '^Artikel Kesehatan Terbaru$'
+      - '^Penulis Medis$'
+      - '^Penyunting:'
+      - '^Terakhir Direview:'
+
+  # Contoh menambah sumber baru: salin blok di atas, ganti URL, regex, dan selector.
+  # who_id:
+  #   description: "..."
+  #   license_note: "CC BY-NC-SA 3.0 IGO"
+  #   list_url_template: "https://.../page/{page}"

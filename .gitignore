@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+# Data mentah tidak di-commit (hak cipta sumber); ambil ulang lewat scripts/crawl.py
+data/raw/*
+!data/raw/.gitkeep
+data/raw_html/*
+!data/raw_html/.gitkeep
